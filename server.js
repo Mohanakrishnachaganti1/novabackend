@@ -31,6 +31,8 @@ console.log("NODE_ENV:", env);
 console.log("Cookie secure:", env === "production");
 console.log("Cookie sameSite:", env === "production" ? "none" : "lax");
 const app = express();
+// Trust Render/Cloudflare proxy
+app.set("trust proxy", 1);
 
 // Connect to database
 connectDB();
