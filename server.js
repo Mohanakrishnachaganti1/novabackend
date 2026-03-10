@@ -51,7 +51,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "http://10.73.121.103:5173",
-  "https://peaceful-hummingbird-9e5ecf.netlify.app",
+  "https://lucky-torrone-f23027.netlify.app",
   "https://www.novainternationaldesigns.com",
 ];
 
