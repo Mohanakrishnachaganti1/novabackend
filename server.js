@@ -27,6 +27,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Load environment variables
 dotenv.config();
 const env = process.env.NODE_ENV || "development";
+console.log("NODE_ENV:", env);
+console.log("Cookie secure:", env === "production");
+console.log("Cookie sameSite:", env === "production" ? "none" : "lax");
 const app = express();
 
 // Connect to database
