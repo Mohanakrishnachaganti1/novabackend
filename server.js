@@ -24,17 +24,9 @@ import rateLimit from "express-rate-limit";
 // stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Load environment variables based on NODE_ENV
-const env = process.env.NODE_ENV;
-
-if (env === "production") {
-  dotenv.config({ path: ".env.production" });
-} else if (env === "test") {
-  dotenv.config({ path: ".env.test" });
-} else {
-  dotenv.config(); // defaults to .env
-}
-
+// Load environment variables
+dotenv.config();
+const env = process.env.NODE_ENV || "development";
 const app = express();
 
 // Connect to database
