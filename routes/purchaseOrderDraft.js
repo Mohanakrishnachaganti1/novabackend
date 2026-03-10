@@ -6,6 +6,11 @@ import mongoose from "mongoose";
 import authenticate from "../middleware/authenticate.js";
 
 const router = express.Router();
+// Flexible auth — required for Users, optional for Guests
+function authenticateIfUser(req, res, next) {
+  if (req.params.ownerType === "Guest") return next();
+  return authenticate(req, res, next);
+}
 // Authorization check — verifies user owns the requested draft
 function checkOwnership(req, res, ownerType, ownerId) {
   if (ownerType === "Guest") {
@@ -28,7 +33,7 @@ function checkOwnership(req, res, ownerType, ownerId) {
  * GET /:ownerType/:ownerId
  * Fetch or create a draft PO for a user or guest
  */
-router.get("/:ownerType/:ownerId", authenticate, async (req, res) => {
+router.get("/:ownerType/:ownerId", authenticateIfUser, async (req, res) => {
   try {
     const { ownerType, ownerId } = req.params;
 
@@ -60,7 +65,7 @@ router.get("/:ownerType/:ownerId", authenticate, async (req, res) => {
  * POST /:ownerType/:ownerId/items
  * Add/update items in draft PO
  */
-router.post("/:ownerType/:ownerId/items", authenticate, async (req, res) => {
+router.post("/:ownerType/:ownerId/items", authenticateIfUser, async (req, res) => {
   try {
     const { ownerType, ownerId } = req.params;
     const { items } = req.body;
@@ -154,7 +159,7 @@ router.post("/:ownerType/:ownerId/items", authenticate, async (req, res) => {
  * DELETE /:ownerType/:ownerId/items
  * Delete a single item from draft PO or clear all items
  */
-router.delete("/:ownerType/:ownerId/items", authenticate, async (req, res) => {
+router.delete("/:ownerType/:ownerId/items", authenticateIfUser, async (req, res) => {
   try {
     const { ownerType, ownerId } = req.params;
     const { productId, color, size } = req.body || {};
