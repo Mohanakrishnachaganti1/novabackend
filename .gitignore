@@ -1,0 +1,24 @@
+# Environment
+.env
+.env.production
+.env.test
+
+# Dependencies
+node_modules/
+
+# Uploads
+uploads/
+
+# Scan results
+results.json
+secrets_results.html
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
